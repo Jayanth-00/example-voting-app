@@ -1,0 +1,17 @@
+name: Trigger Azure DevOps Pipeline
+
+on:
+  push:
+    branches: [ "main" ] # Triggers when code pushes to main
+
+jobs:
+  trigger-azure:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Call Azure DevOps API
+      run: |
+        curl -X POST \
+        -u ":${{ secrets.AZURE_DEVOPS_PAT }}" \
+        -H "Content-Type: application/json" \
+        -d '{"definition": {"id": YOUR_PIPELINE_ID}}' \
+        "https://azure.com"
